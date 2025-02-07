@@ -7,9 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.htmlunit.MockMvcWebClientBuilder;
@@ -22,7 +20,7 @@ import java.util.Collections;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
-@WebMvcTest(controllers = IndexController.class)
+@WebMvcTest(controllers = CatalogController.class)
 public class CatalogControlerTest {
 
     private WebClient webClient;
@@ -38,12 +36,20 @@ public class CatalogControlerTest {
     }
 
     @Test
+    @DisplayName("/catalog returns the catalog page")
+    void returnsCatalogPage() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/catalog"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("Cake Factory")));
+    }
+
+    @Test
     @DisplayName("index page return a list of items from the database")
     void returnsListOfItemsFromDb() throws Exception {
         final String expectedTitle = "Red Velvet";
         mockItems(expectedTitle, BigDecimal.valueOf(3));
 
-        HtmlPage page = webClient.getPage("http://localhost/");
+        HtmlPage page = webClient.getPage("http://localhost/catalog");
 
         assertThat(page.querySelectorAll(".item-title")).anyMatch(domElement -> expectedTitle.equals(domElement.asNormalizedText()));
     }
