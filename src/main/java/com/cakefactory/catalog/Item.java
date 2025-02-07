@@ -1,4 +1,4 @@
-package com.cakefactory;
+package com.cakefactory.catalog;
 
 import lombok.Data;
 
@@ -12,5 +12,13 @@ public class Item {
     public Item(String title, BigDecimal price) {
         this.title = title;
         this.price = price;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
     }
 }

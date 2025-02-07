@@ -1,6 +1,5 @@
-package com.cakefactory;
+package com.cakefactory.catalog;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface CatalogService {

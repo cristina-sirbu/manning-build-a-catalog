@@ -1,4 +1,4 @@
-package com.cakefactory;
+package com.cakefactory.catalog;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
