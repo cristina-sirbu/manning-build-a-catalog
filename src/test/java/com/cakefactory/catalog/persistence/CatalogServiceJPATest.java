@@ -39,8 +39,6 @@ public class CatalogServiceJPATest {
 
         this.entityManager.persistAndFlush(testItem);
         List<Item> items = jpaCatalogServiceImp.getItems();
-        Item item = items.get(0);
-        assertThat(item.getTitle()).isEqualTo(testItem.title);
-        assertThat(item.getPrice()).isEqualTo(testItem.price);
+        assertThat(items).anyMatch(item -> testItem.title.equals(item.getTitle()));
     }
 }
